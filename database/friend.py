@@ -81,9 +81,9 @@ def send_friend_request(sending_user_id: str, friend_receives_email: str):
                 friend['requests'].append(sending_user_id)
                 update_user_data(friend_id, friend)
             else:
-                raise FriendNotFoundException(f"The user sent friend request{sending_user_id}")
+                raise FriendNotFoundException(f"The user has already submitted a friend request")
         else:
-            raise FriendNotFoundException(f"The sender is friend of {friend_receives_email}")
+            raise FriendNotFoundException(f"Users are already friends")
     except UserNotFoundException as ex:
         raise ex
     except errors.InvalidId as ex:

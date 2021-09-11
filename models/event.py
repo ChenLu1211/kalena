@@ -19,7 +19,7 @@ class EventModel(BaseModel):
     class Config:
         schema_extra = {
             "example": {
-                "creator": "611cc86635f827966373a392",
+                "creator": "israel@mta.ac.il",
                 "title": "Beer with friends",
                 "start_date": '2021-11-10T11:15:00+00:00',
                 "end_date": '2021-11-10T12:15:00+00:00',

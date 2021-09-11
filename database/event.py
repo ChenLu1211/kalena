@@ -114,12 +114,12 @@ def add_repeat_event(event: dict, user: dict, user_id: str) -> dict:
     end_date = datetime.strptime(user_end_event[0], '%Y-%m-%d')
     for _ in range(1, repeat_count):
         event.pop('obj_id')
-        new_event = add_event(event)
+        event = add_event(event)
         start_date += timedelta(days=(space * 7))  # ++
-        new_event['start_date'] = str(start_date.date()) + 'T' + user_start_event[1]
-        new_event['end_date'] = str(end_date.date()) + 'T' + user_end_event[1]
-        update_event_data(new_event['obj_id'], new_event)
-        user['events'].append(new_event["obj_id"])
+        event['start_date'] = str(start_date.date()) + 'T' + user_start_event[1]
+        event['end_date'] = str(end_date.date()) + 'T' + user_end_event[1]
+        update_event_data(event['obj_id'], event)
+        user['events'].append(event["obj_id"])
         update_user_data(user_id, user)
 
 
@@ -130,12 +130,14 @@ def add_event_to_users(user_id: str, event_data: dict) -> dict:
             event_data['participants'].append(user["email"])
         retrieve_user(email= event_data['creator'])
         new_event = add_event(event_data)
+        event_id = new_event['obj_id']
         user['events'].append(new_event["obj_id"])
-        if new_event['repeat'] == 'weekly' or new_event['repeat'] == 'monthly':
-            add_repeat_event(new_event, user, user_id)
         for invited_user_mail in new_event['invitees']:
-            invite_user_to_event(invited_user_mail, new_event["obj_id"])
+            invite_user_to_event(invited_user_mail, event_id)
+        if new_event['repeat'] == 'weekly' or new_event['repeat'] == 'monthly':
+            new_event = add_repeat_event(new_event, user, user_id)
         update_user_data(user_id, user)
+        new_event = retrieve_event(event_id)
         return new_event
     except UserNotFoundException as ex:
         force_delete_event(new_event['obj_id'])

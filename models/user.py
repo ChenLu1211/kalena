@@ -17,7 +17,7 @@ class UserModel(BaseModel):
                 "password": "12345678",
                 "first_name": "Israel",
                 "last_name": "Israeli",
-                "degree": "CS",
+                "degree": "Computer Science",
             }
         }
 
@@ -37,7 +37,7 @@ class UpdateUserModel(BaseModel):
                 "last_name": "Israeli",
                 "city": "Jaffo",
                 "address": "Rabeno Yeruham",
-                "degree": "CS",
+                "degree": "Computer Science",
             }
         }
 
