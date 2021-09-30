@@ -4,7 +4,7 @@ from bson import ObjectId
 import pymongo
 
 
-MONGO_DETAILS = "mongodb+srv://kalena:10203040@cluster0.48shf.mongodb.net/calendar?retryWrites=true&w=majority"
+MONGO_DETAILS = "mongodb+srv://name:password@cluster0.48shf.mongodb.net/calendar?retryWrites=true&w=majority"
 client = pymongo.MongoClient(MONGO_DETAILS, ssl_cert_reqs=ssl.CERT_NONE)
 database = client.kalena
 
